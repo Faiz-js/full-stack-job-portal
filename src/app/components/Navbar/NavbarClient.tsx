@@ -2,12 +2,30 @@
 
 import { Box, Button, IconButton } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import NavbarMenu from "./NavbarMenu";
 
-export default function NavbarClient() {
+const NavbarClient = () => {
   const [isMenuClicked, setIsMenuClicked] = useState<boolean>(false);
-  console.log(isMenuClicked);
+
+  const menuRef = useRef<HTMLDivElement | null>(null);
+  const iconRef = useRef<HTMLButtonElement | null>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        menuRef.current &&
+        !menuRef.current.contains(event.target as Node) &&
+        iconRef.current &&
+        !iconRef.current.contains(event.target as Node)
+      ) {
+        setIsMenuClicked(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   return (
     <>
@@ -23,6 +41,8 @@ export default function NavbarClient() {
 
       {/* hide icon on larger devices and display it on smaller devices */}
       <IconButton
+        ref={iconRef}
+        size="large"
         onClick={() => setIsMenuClicked(!isMenuClicked)}
         sx={{
           display: { xs: "flex", sm: "none" },
@@ -33,7 +53,9 @@ export default function NavbarClient() {
         <MenuIcon />
       </IconButton>
 
-      {isMenuClicked && <NavbarMenu />}
+      <NavbarMenu isOpen={isMenuClicked} ref={menuRef} />
     </>
   );
 }
+
+export default NavbarClient;
