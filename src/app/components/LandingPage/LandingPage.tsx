@@ -7,5 +7,5 @@ export default function LandingPageComponent() {
       <Navbar />
       <Hero />
     </main>
-  ) 
+  );
 }
