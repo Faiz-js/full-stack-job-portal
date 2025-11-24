@@ -4,12 +4,15 @@ import { Box, Button, IconButton } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useState, useRef, useEffect } from "react";
 import NavbarMenu from "./NavbarMenu";
+import { useRouter } from "next/navigation";
 
 const NavbarClient = () => {
   const [isMenuClicked, setIsMenuClicked] = useState<boolean>(false);
 
   const menuRef = useRef<HTMLDivElement | null>(null);
   const iconRef = useRef<HTMLButtonElement | null>(null);
+
+  const router = useRouter();
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -31,7 +34,11 @@ const NavbarClient = () => {
     <>
       {/* hide buttons on mobile devices and display them on larger devices */}
       <Box sx={{ display: { xs: "none", sm: "flex" }, gap: "10px" }}>
-        <Button variant="contained" sx={{ backgroundColor: "#0051FF" }}>
+        <Button
+          onClick={() => router.push("/login")}
+          variant="contained"
+          sx={{ backgroundColor: "#0051FF" }}
+        >
           Login
         </Button>
         <Button variant="contained" sx={{ backgroundColor: "#0051FF" }}>
@@ -56,6 +63,6 @@ const NavbarClient = () => {
       <NavbarMenu isOpen={isMenuClicked} ref={menuRef} />
     </>
   );
-}
+};
 
 export default NavbarClient;
