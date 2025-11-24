@@ -41,7 +41,11 @@ const NavbarClient = () => {
         >
           Login
         </Button>
-        <Button variant="contained" sx={{ backgroundColor: "#0051FF" }}>
+        <Button
+          onClick={() => router.push("/signup")}
+          variant="contained"
+          sx={{ backgroundColor: "#0051FF" }}
+        >
           Signup
         </Button>
       </Box>
