@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
-import LeftBox from "./LeftBox";
-import RightBox from "./RightBox";
+import LeftBox from "@/components/Trust/LeftBox";
+import RightBox from "@/components/Trust/RightBox";
 
 const Trust = () => {
   return (

@@ -3,7 +3,7 @@
 import { Box, Button, IconButton } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useState, useRef, useEffect } from "react";
-import NavbarMenu from "./NavbarMenu";
+import NavbarMenu from "@/components/Navbar/NavbarMenu";
 import { useRouter } from "next/navigation";
 
 const NavbarClient = () => {

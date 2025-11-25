@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import Search from "../common/Search/Search";
+import Search from "@/components/common/Search/Search";
 
 const heroSectionStyling = {
   height: "90vh",
