@@ -1,5 +1,5 @@
 import { Box, Paper, Typography } from "@mui/material";
-import InputComponent from "./InputComponent";
+import InputComponent from "@/components/Login/InputComponent";
 
 const LoginComponent = () => {
   return (

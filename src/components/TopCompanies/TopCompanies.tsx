@@ -1,5 +1,5 @@
 import { Box, Button, Typography } from "@mui/material";
-import CompanyCard from "./CompanyCard";
+import CompanyCard from "@/components/TopCompanies/CompanyCard";
 
 const companiesCard = [
   {

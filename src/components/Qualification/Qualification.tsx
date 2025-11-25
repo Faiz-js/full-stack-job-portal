@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import QualificationCard from "./QualificationCard";
+import QualificationCard from "@/components/Qualification/QualificationCard";
 
 const qualificationCard = [
   {
