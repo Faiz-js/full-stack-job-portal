@@ -18,9 +18,19 @@ const SignupForm = () => {
     }));
   };
 
-  const handleClick = () => {
-    console.log(signupDetails);
+  const handleClick = async () => {
+    try {
+      const res = await fetch("/api/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(signupDetails),
+      });
+      await res.json();
+    } catch (error) {
+      console.log("error from backend: ", error);
+    }
   };
+
   return (
     <Stack spacing={2}>
       <TextField
