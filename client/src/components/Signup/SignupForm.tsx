@@ -5,9 +5,9 @@ import { useState } from "react";
 
 const SignupForm = () => {
   const [signupDetails, setSignupDetails] = useState({
-    name: "",
+    fullname: "",
     email: "",
-    mob_num: "",
+    mobileNumber: "",
     password: "",
   });
 
@@ -20,11 +20,19 @@ const SignupForm = () => {
 
   const handleClick = async () => {
     try {
-      const res = await fetch("/api/signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(signupDetails),
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/signup`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(signupDetails),
+        }
+      );
+
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.message || `HTTP error! status: ${res.status}`)
+      }
       await res.json();
     } catch (error) {
       console.log("error from backend: ", error);
@@ -35,8 +43,8 @@ const SignupForm = () => {
     <Stack spacing={2}>
       <TextField
         label="Full name"
-        name="name"
-        value={signupDetails.name}
+        name="fullname"
+        value={signupDetails.fullname}
         onChange={handleChange}
       />
       <TextField
@@ -47,8 +55,8 @@ const SignupForm = () => {
       />
       <TextField
         label="Mobile number"
-        name="mob_num"
-        value={signupDetails.mob_num}
+        name="mobileNumber"
+        value={signupDetails.mobileNumber}
         onChange={handleChange}
       />
       <TextField
