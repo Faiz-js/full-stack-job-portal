@@ -3,33 +3,33 @@ const jwt = require("jsonwebtoken");
 
 const signup = async (req, res) => {
   try {
-  //   const { fullname, email, mobileNumber, password } = req.body;
+    //   const { fullname, email, mobileNumber, password } = req.body;
 
-  //   if (!fullname || !email || !mobileNumber || !password) {
-  //     return res
-  //       .status(400)
-  //       .json({ success: false, message: "Please fill all fields" });
-  //   }
+    //   if (!fullname || !email || !mobileNumber || !password) {
+    //     return res
+    //       .status(400)
+    //       .json({ success: false, message: "Please fill all fields" });
+    //   }
 
-  //   const isExisting = await User.findOne({
-  //     $or: [{ email }, { mobileNumber }],
-  //   });
+    //   const isExisting = await User.findOne({
+    //     $or: [{ email }, { mobileNumber }],
+    //   });
 
-  //   if (isExisting) {
-  //     return res.status(409).json({
-  //       success: false,
-  //       message: "User with these email or mobile number already exists",
-  //     });
-  //   }
+    //   if (isExisting) {
+    //     return res.status(409).json({
+    //       success: false,
+    //       message: "User with these email or mobile number already exists",
+    //     });
+    //   }
 
-  //   const hashedPassword = await bcrypt.hash(password, 10);
+    //   const hashedPassword = await bcrypt.hash(password, 10);
 
-  //   await User.create({
-  //     fullname,
-  //     email,
-  //     mobileNumber,
-  //     password: hashedPassword,
-  //   });
+    //   await User.create({
+    //     fullname,
+    //     email,
+    //     mobileNumber,
+    //     password: hashedPassword,
+    //   });
 
     return res
       .status(200)
@@ -41,7 +41,7 @@ const signup = async (req, res) => {
         success: false,
         message: "Something went wrong while processing your signup.",
       },
-      { stauts: 500 }
+      { stauts: 500 },
     );
   }
 };
