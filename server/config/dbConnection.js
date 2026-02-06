@@ -1,13 +1,19 @@
-const mongoose = require("mongoose");
+const { Pool } = require("pg");
 
-const connectDB = async () => {
-  try {
-    await mongoose.connect(process.env.MONGODB_URL);
-    console.log("Database connected successfully!");
-  } catch (error) {
-    console.log("Failed to connect to database: ", error);
-    process.exit(1);
-  }
-};
+const psql = new Pool({
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+});
 
-module.exports = connectDB;
+psql.on("connect", () => {
+  console.log("✅ connected to database successfully!!");
+});
+
+psql.on("error", () => {
+  console.error("❌ connection to database failed!!");
+});
+
+module.exports = psql;

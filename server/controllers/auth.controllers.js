@@ -1,6 +1,10 @@
-const User = require("../models/User.js");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const {
+  checkExistingEmailOrMobileNumber,
+  insertUser,
+  checkExistingEmail,
+} = require("../models/user.model");
 
 const signup = async (req, res) => {
   try {
@@ -12,12 +16,13 @@ const signup = async (req, res) => {
         .json({ success: false, message: "Please fill all fields" });
     }
 
-    const isExisting = await User.findOne({
-      $or: [{ email }, { mobileNumber }],
-    });
+    const isExisting = await checkExistingEmailOrMobileNumber(
+      email,
+      mobileNumber,
+    );
 
     if (isExisting) {
-      return res.status(409).json({
+      return res.status(400).json({
         success: false,
         message: "User with these email or mobile number already exists",
       });
@@ -25,12 +30,7 @@ const signup = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    await User.create({
-      fullname,
-      email,
-      mobileNumber,
-      password: hashedPassword,
-    });
+    await insertUser(fullname, email, mobileNumber, hashedPassword);
 
     return res
       .status(200)
@@ -43,7 +43,7 @@ const signup = async (req, res) => {
         success: false,
         message: "Something went wrong while processing your signup.",
       },
-      { stauts: 500 }
+      { stauts: 500 },
     );
 =======
     console.error("❌ Error in signup function: ", error);
@@ -99,22 +99,22 @@ const login = async (req, res) => {
   }
 <<<<<<< Updated upstream
 
-  const userInDb = await User.findOne({ email });
+  const userInDB = await checkExistingEmail(email);
 
-  if (!userInDb) {
+  if (!userInDB) {
     return res.status(404).json({ success: false, message: "No such user" });
   }
 
-  const isPassMatch = await bcrypt.compare(password, userInDb.password);
+  const isPassMatch = await bcrypt.compare(password, userInDB.password);
 
   if (!isPassMatch) {
     return res.status(400).json({ success: false, message: "No such user" });
   }
 
   const token = jwt.sign(
-    { userID: userInDb._id, email: userInDb.email },
+    { userID: userInDB._id, email: userInDB.email },
     process.env.JWT_SECRET,
-    { expiresIn: "24h" }
+    { expiresIn: "24h" },
   );
 
   res.cookie("token", token, {
