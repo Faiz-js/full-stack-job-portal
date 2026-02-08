@@ -4,16 +4,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const authRoutes = require("./routes/auth.routes.js");
-// const psql = require("./config/dbConnection.js");
-
-// (async () => {
-//   try {
-//     const test = await psql.query("SELECT version()");
-//     console.log("try block", test);
-//   } catch (error) {
-//     console.error("catch block");
-//   }
-// })();
+const jobRoutes = require("./routes/job.routes.js");
 
 const PORT = process.env.PORT || 5000;
 
@@ -28,6 +19,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/auth", authRoutes);
+app.use("/api/job", jobRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
