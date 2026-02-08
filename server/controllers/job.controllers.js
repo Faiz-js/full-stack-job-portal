@@ -1,4 +1,4 @@
-const { insertPostJob } = require("../models/job.model");
+const jobModel = require("../models/job.model.js");
 
 const postJob = async (req, res) => {
   try {
@@ -30,7 +30,7 @@ const postJob = async (req, res) => {
         .json({ success: false, message: "All fields are required" });
     }
 
-    await insertPostJob(
+    await jobModel.insertPostJob(
       jobTitle,
       companyName,
       skills,

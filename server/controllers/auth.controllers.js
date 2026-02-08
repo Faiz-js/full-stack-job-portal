@@ -1,10 +1,6 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const {
-  checkExistingEmailOrMobileNumber,
-  insertUser,
-  checkExistingEmail,
-} = require("../models/user.model");
+const userModel = require("../models/user.model.js");
 
 const signup = async (req, res) => {
   try {
@@ -16,7 +12,7 @@ const signup = async (req, res) => {
         .json({ success: false, message: "Please fill all fields" });
     }
 
-    const isExisting = await checkExistingEmailOrMobileNumber(
+    const isExisting = await userModel.checkExistingEmailOrMobileNumber(
       email,
       mobileNumber,
     );
@@ -30,7 +26,7 @@ const signup = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    await insertUser(fullname, email, mobileNumber, hashedPassword);
+    await userModel.insertUser(fullname, email, mobileNumber, hashedPassword);
 
     return res
       .status(200)
@@ -53,7 +49,7 @@ const login = async (req, res) => {
         .json({ success: false, message: "Please fill all fields" });
     }
 
-    const userInDB = await checkExistingEmail(email);
+    const userInDB = await userModel.checkExistingEmail(email);
 
     if (!userInDB) {
       return res.status(404).json({ success: false, message: "No such user" });
