@@ -38,8 +38,6 @@ const PostJobComponent = () => {
     setPostJobData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  console.log("postJobData: ", postJobData);
-
   return (
     <Container maxWidth="lg">
       <Box sx={{ my: 2 }}>
